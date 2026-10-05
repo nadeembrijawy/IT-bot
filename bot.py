@@ -2,14 +2,6 @@
 """
 بوت بنك أسئلة الامتحانات (هندسة معلوماتية - جامعة حمص)
 
-التنقل:
-السنة -> الفصل -> (الاختصاص بسنة 4 و5) -> المادة -> أسئلة Quiz بدفعات.
-
-تم تحويل قوائم التنقل من Inline Keyboard إلى Reply Keyboard
-حتى تظهر كأزرار كبيرة أسفل المحادثة مثل لوحة المفاتيح في الصورة.
-
-التشغيل:
-    BOT_TOKEN=xxxx python bot_reply_keyboard.py
 """
 
 import json
@@ -174,7 +166,11 @@ def set_state(context, state, **values):
     context.user_data.update(values)
 
 
-async def send_batch(chat_id, context, subject_id, offset):
+async def send_batch(chat_id, context, subject_id, offset=0):
+    """
+    إرسال جميع أسئلة المادة دفعة واحدة.
+    لا يوجد زر "التالي" ولا تقسيم إلى دفعات.
+    """
     with db() as con:
         subj = con.execute(
             "SELECT * FROM subjects WHERE id=?",
@@ -187,19 +183,9 @@ async def send_batch(chat_id, context, subject_id, offset):
             FROM questions q
             WHERE q.subject_id=? AND {OK}
             ORDER BY q.id
-            LIMIT ? OFFSET ?
-            """,
-            (subject_id, BATCH, offset),
-        ).fetchall()
-
-        total = con.execute(
-            f"""
-            SELECT COUNT(*)
-            FROM questions q
-            WHERE q.subject_id=? AND {OK}
             """,
             (subject_id,),
-        ).fetchone()[0]
+        ).fetchall()
 
     if not subj:
         await context.bot.send_message(
@@ -208,16 +194,8 @@ async def send_batch(chat_id, context, subject_id, offset):
         )
         return
 
-    # نحفظ مكان المستخدم حتى يعمل زر "التالي" من Reply Keyboard.
-    set_state(
-        context,
-        "questions",
-        subject_id=subject_id,
-        offset=offset,
-        total=total,
-    )
-
-    for i, q in enumerate(rows, start=offset + 1):
+    # نرسل جميع الأسئلة الموجودة للمادة، بدون LIMIT/OFFSET.
+    for i, q in enumerate(rows, start=1):
         if q["image"]:
             path = os.path.join(BASE, q["image"])
             if os.path.exists(path):
@@ -238,39 +216,18 @@ async def send_batch(chat_id, context, subject_id, offset):
                 explanation=clip(q["explanation"] or "", 200) or None,
             )
         except Exception as e:
-            # سؤال مرفوض من تيليجرام
+            # سؤال مرفوض من تيليجرام، نكمل إرسال باقي الأسئلة.
             log.warning("poll failed q=%s: %s", q["key"], e)
 
-    done = offset + len(rows)
-
-    if done < total:
-        next_text = f"⏭️ التالي ({done}/{total})"
-        set_state(
-            context,
-            "questions",
-            subject_id=subject_id,
-            offset=done,
-            total=total,
-            next_text=next_text,
-        )
-        message = f"انتهت دفعة أسئلة «{subj['name']}»"
-        keyboard = reply_kb(
-            [next_text, "🏠 القائمة الرئيسية"],
-            columns=2,
-        )
-    else:
-        set_state(context, "subjects_done")
-        message = f"🎉 خلصت كل أسئلة «{subj['name']}»"
-        keyboard = reply_kb(
-            ["🏠 القائمة الرئيسية"],
-            columns=1,
-        )
-
+    # بعد إرسال آخر سؤال فقط نرسل رسالة النهاية.
     await context.bot.send_message(
         chat_id,
-        message,
-        reply_markup=keyboard,
+        "🎉 انتهت جميع الأسئلة",
+        reply_markup=reply_kb(["🏠 القائمة الرئيسية"], columns=1),
     )
+
+    # حالة نهائية فقط، بدون "التالي".
+    set_state(context, "questions_done")
 
 
 async def show_years(message, context):
@@ -452,22 +409,10 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
             return
 
-    # ---------------- الأسئلة / التالي ----------------
-    if state == "questions":
+    # ---------------- بعد انتهاء الأسئلة ----------------
+    if state == "questions_done":
         if text == "🏠 القائمة الرئيسية":
             await show_years(message, context)
-            return
-
-        next_text = context.user_data.get("next_text")
-        if next_text and text == next_text:
-            subject_id = context.user_data["subject_id"]
-            offset = context.user_data["offset"]
-            await send_batch(
-                message.chat_id,
-                context,
-                int(subject_id),
-                int(offset),
-            )
             return
 
     # ---------------- رجوع عام ----------------
