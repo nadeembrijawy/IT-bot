@@ -8,6 +8,16 @@ import json
 import logging
 import os
 import sqlite3
+import os
+from http.server import SimpleHTTPRequestHandler, HTTPServer
+import threading
+
+def run_dummy_server():
+    port = int(os.environ.get("PORT", 10000))
+    server = HTTPServer(('0.0.0.0', port), SimpleHTTPRequestHandler)
+    print(f"Dummy server running on port {port}")
+    server.serve_forever()
+threading.Thread(target=run_dummy_server, daemon=True).start()
 
 from telegram import ReplyKeyboardMarkup, Update
 from telegram.constants import PollType
