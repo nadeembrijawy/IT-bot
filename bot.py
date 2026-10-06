@@ -5,19 +5,40 @@
 """
 
 import json
+import re
 import logging
 import os
 import sqlite3
-import os
-from http.server import SimpleHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer
 import threading
 
-def run_dummy_server():
+
+class HealthHandler(BaseHTTPRequestHandler):
+    def _ok(self, body=True):
+        self.send_response(200)
+        self.send_header("Content-Type", "text/plain; charset=utf-8")
+        self.end_headers()
+        if body:
+            self.wfile.write(b"OK")
+
+    def do_GET(self):
+        self._ok()
+
+    def do_HEAD(self):  
+        self._ok(body=False)
+
+    def log_message(self, *args):  
+        pass
+
+
+def run_health_server():
     port = int(os.environ.get("PORT", 10000))
-    server = HTTPServer(('0.0.0.0', port), SimpleHTTPRequestHandler)
-    print(f"Dummy server running on port {port}")
+    server = HTTPServer(("0.0.0.0", port), HealthHandler)
+    print(f"Health server running on port {port}")
     server.serve_forever()
-threading.Thread(target=run_dummy_server, daemon=True).start()
+
+
+threading.Thread(target=run_health_server, daemon=True).start()
 
 from telegram import ReplyKeyboardMarkup, Update
 from telegram.constants import PollType
@@ -213,7 +234,7 @@ async def send_batch(chat_id, context, subject_id, offset=0):
                     await context.bot.send_photo(chat_id, f)
 
         options = [clip(o, 100) for o in json.loads(q["options"])][:10]
-        title = clip(f"{i}) {q['question']}", 300)
+        title = clip(f"{i}) {strip_num(q['question'])}", 300)
 
         try:
             await context.bot.send_poll(
@@ -238,6 +259,16 @@ async def send_batch(chat_id, context, subject_id, offset=0):
 
     # حالة نهائية فقط، بدون "التالي".
     set_state(context, "questions_done")
+
+
+
+# يشيل الرقم الأصلي من بداية نص السؤال (مثل "29)" أو "5-" أو "12.")
+# حتى يبقى ترقيم واحد فقط: ترقيم البوت.
+_LEAD_NUM = re.compile(r"^\s*\d+\s*(?:\)|[\.\-_\u0640\u2013:]+(?!\d))\s*")
+
+
+def strip_num(text):
+    return _LEAD_NUM.sub("", text or "", count=1).lstrip()
 
 
 async def show_years(message, context):
