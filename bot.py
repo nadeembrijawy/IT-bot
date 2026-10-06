@@ -14,6 +14,8 @@ import threading
 
 
 class HealthHandler(BaseHTTPRequestHandler):
+    """يرد بـ OK فقط، بدون ما يعرض أي ملف من المجلد."""
+
     def _ok(self, body=True):
         self.send_response(200)
         self.send_header("Content-Type", "text/plain; charset=utf-8")
@@ -24,10 +26,10 @@ class HealthHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self._ok()
 
-    def do_HEAD(self):  
+    def do_HEAD(self):  # UptimeRobot بيستخدم HEAD أحياناً
         self._ok(body=False)
 
-    def log_message(self, *args):  
+    def log_message(self, *args):  # بدون سبام بالـ logs
         pass
 
 
@@ -229,9 +231,17 @@ async def send_batch(chat_id, context, subject_id, offset=0):
     for i, q in enumerate(rows, start=1):
         if q["image"]:
             path = os.path.join(BASE, q["image"])
+            if not os.path.exists(path):
+                # احتياط: إذا الصور مرفوعة بجذر الريبو بدل مجلد media
+                path = os.path.join(BASE, os.path.basename(q["image"]))
             if os.path.exists(path):
-                with open(path, "rb") as f:
-                    await context.bot.send_photo(chat_id, f)
+                try:
+                    with open(path, "rb") as f:
+                        await context.bot.send_photo(chat_id, f)
+                except Exception as e:
+                    log.warning("photo failed q=%s: %s", q["key"], e)
+            else:
+                log.warning("image missing q=%s path=%s", q["key"], path)
 
         options = [clip(o, 100) for o in json.loads(q["options"])][:10]
         title = clip(f"{i}) {strip_num(q['question'])}", 300)
