@@ -275,11 +275,10 @@ async def send_batch(chat_id, context, subject_id, offset=0):
 
     if remaining > 0:
         # لسا في أسئلة: زر "التالي" (الدفعة الأخيرة قد تكون أقل من 10).
-        nxt = min(BATCH, remaining)
         await context.bot.send_message(
             chat_id,
-            f"تم عرض {sent_until} من {total} سؤال.\n"
-            f"باقي {remaining} سؤال، اضغط التالي لعرض {nxt} منها 👇",
+            f"المعروض: {sent_until} / {total} | "
+            f"المتبقي: {remaining} | اختر «التالي» للمتابعة",
             reply_markup=reply_kb(
                 [NEXT_LABEL, "🏠 القائمة الرئيسية"], columns=1
             ),
