@@ -199,10 +199,14 @@ def set_state(context, state, **values):
     context.user_data.update(values)
 
 
+NEXT_LABEL = "➡️ التالي"
+
+
 async def send_batch(chat_id, context, subject_id, offset=0):
     """
-    إرسال جميع أسئلة المادة دفعة واحدة.
-    لا يوجد زر "التالي" ولا تقسيم إلى دفعات.
+    إرسال أسئلة المادة على دفعات (BATCH = 10 أسئلة).
+    إذا بقي أكثر من دفعة: يظهر زر "التالي" لإرسال الدفعة التالية.
+    إذا بقي BATCH سؤال أو أقل: يُرسلها كلها ثم رسالة النهاية.
     """
     with db() as con:
         subj = con.execute(
@@ -210,14 +214,20 @@ async def send_batch(chat_id, context, subject_id, offset=0):
             (subject_id,),
         ).fetchone()
 
+        total = con.execute(
+            f"SELECT COUNT(*) FROM questions q WHERE q.subject_id=? AND {OK}",
+            (subject_id,),
+        ).fetchone()[0]
+
         rows = con.execute(
             f"""
             SELECT q.*
             FROM questions q
             WHERE q.subject_id=? AND {OK}
             ORDER BY q.id
+            LIMIT ? OFFSET ?
             """,
-            (subject_id,),
+            (subject_id, BATCH, offset),
         ).fetchall()
 
     if not subj:
@@ -227,8 +237,8 @@ async def send_batch(chat_id, context, subject_id, offset=0):
         )
         return
 
-    # نرسل جميع الأسئلة الموجودة للمادة، بدون LIMIT/OFFSET.
-    for i, q in enumerate(rows, start=1):
+    # الترقيم يكمل من الدفعة السابقة (11، 12، ...).
+    for i, q in enumerate(rows, start=offset + 1):
         if q["image"]:
             path = os.path.join(BASE, q["image"])
             if not os.path.exists(path):
@@ -260,16 +270,35 @@ async def send_batch(chat_id, context, subject_id, offset=0):
             # سؤال مرفوض من تيليجرام، نكمل إرسال باقي الأسئلة.
             log.warning("poll failed q=%s: %s", q["key"], e)
 
+    sent_until = offset + len(rows)
+    remaining = total - sent_until
+
+    if remaining > 0:
+        # لسا في أسئلة: زر "التالي" (الدفعة الأخيرة قد تكون أقل من 10).
+        nxt = min(BATCH, remaining)
+        await context.bot.send_message(
+            chat_id,
+            f"تم عرض {sent_until} من {total} سؤال.\n"
+            f"باقي {remaining} سؤال، اضغط التالي لعرض {nxt} منها 👇",
+            reply_markup=reply_kb(
+                [NEXT_LABEL, "🏠 القائمة الرئيسية"], columns=1
+            ),
+        )
+        set_state(
+            context,
+            "questions",
+            subject_id=subject_id,
+            offset=sent_until,
+        )
+        return
+
     # بعد إرسال آخر سؤال فقط نرسل رسالة النهاية.
     await context.bot.send_message(
         chat_id,
         "🎉 انتهت جميع الأسئلة",
         reply_markup=reply_kb(["🏠 القائمة الرئيسية"], columns=1),
     )
-
-    # حالة نهائية فقط، بدون "التالي".
     set_state(context, "questions_done")
-
 
 
 # يشيل الرقم الأصلي من بداية نص السؤال (مثل "29)" أو "5-" أو "12.")
@@ -457,6 +486,17 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 context,
                 int(subject_id),
                 0,
+            )
+            return
+
+    # ---------------- الدفعة التالية ----------------
+    if state == "questions":
+        if text == NEXT_LABEL:
+            await send_batch(
+                message.chat_id,
+                context,
+                int(context.user_data["subject_id"]),
+                int(context.user_data.get("offset", 0)),
             )
             return
 
