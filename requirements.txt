@@ -1,4 +1,2 @@
 python-telegram-bot>=21.0
-starlette>=0.37
-uvicorn>=0.30
 psycopg[binary]>=3.1
