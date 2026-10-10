@@ -27,6 +27,9 @@ SCHEMA = [
         subject_id INTEGER, subject_name TEXT, year INTEGER, semester INTEGER,
         correct_index INTEGER, sent_at TEXT)""",
     "CREATE INDEX IF NOT EXISTS ix_pm_batch ON poll_map(batch_id)",
+    # محاولة = طالب فتح مادة وأخذ كل دفعاتها؛ تنتهي لما يوصل آخر سؤال
+    """CREATE TABLE IF NOT EXISTS runs(
+        run_id TEXT PRIMARY KEY, user_id BIGINT, subject_id INTEGER, finished_at TEXT)""",
     # إجابات الطلاب
     """CREATE TABLE IF NOT EXISTS answers(
         poll_id TEXT, user_id BIGINT, question_key TEXT,
@@ -125,24 +128,22 @@ def record_answer(poll_id, user_id, chosen):
     return batch_id, sid, ok
 
 
-# ---------------------------------------------------------------- قراءة (نتيجة الطالب)
-def batch_result(user_id, batch_id):
-    """(عدد أسئلة الدفعة, صح, غلط)"""
-    total = fetch("SELECT COUNT(*) FROM poll_map WHERE batch_id=?", (batch_id,))[0][0]
+# ---------------------------------------------------------------- نتيجة الطالب
+def finish_run(run_id, user_id, subject_id):
+    """يُستدعى بعد إرسال آخر دفعة من المادة."""
+    execute("INSERT INTO runs(run_id, user_id, subject_id, finished_at) VALUES(?,?,?,?) "
+            "ON CONFLICT(run_id) DO NOTHING", (run_id, user_id, subject_id, now()))
+
+
+def run_status(user_id, run_id):
+    """(انتهى الإرسال؟, عدد أسئلة المحاولة, صح, غلط)"""
+    fin = fetch("SELECT 1 FROM runs WHERE run_id=?", (run_id,))
+    total = fetch("SELECT COUNT(*) FROM poll_map WHERE batch_id=?", (run_id,))[0][0]
     r = fetch(
         "SELECT COALESCE(SUM(a.is_correct),0), COUNT(*) FROM answers a "
-        "JOIN poll_map p ON p.poll_id=a.poll_id WHERE p.batch_id=? AND a.user_id=?", (batch_id, user_id))[0]
+        "JOIN poll_map p ON p.poll_id=a.poll_id WHERE p.batch_id=? AND a.user_id=?", (run_id, user_id))[0]
     right, answered = int(r[0]), int(r[1])
-    return total, right, answered - right
-
-
-def subject_result(user_id, subject_id):
-    """(صح, غلط) للمادة كلها؛ آخر إجابة لكل سؤال فقط (إذا أعاد الطالب السؤال ما يتكرر)."""
-    rows = fetch("SELECT question_key, is_correct FROM answers WHERE user_id=? AND subject_id=? "
-                 "ORDER BY answered_at", (user_id, subject_id))
-    last = {k: c for k, c in rows}
-    right = sum(1 for c in last.values() if c)
-    return right, len(last) - right
+    return bool(fin), int(total), right, answered - right
 
 
 # ---------------------------------------------------------------- قراءة (تحليل الأدمن)
