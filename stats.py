@@ -9,6 +9,7 @@
 import logging
 import os
 import sqlite3
+import threading
 from datetime import datetime, timedelta, timezone
 
 log = logging.getLogger("qbank.stats")
@@ -48,47 +49,81 @@ def now():
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def _connect():
-    if USE_PG:
-        import psycopg
-        return psycopg.connect(DATABASE_URL, autocommit=True, connect_timeout=10)
-    con = sqlite3.connect(LOCAL_PATH, timeout=10)
-    con.isolation_level = None  # autocommit
-    return con
-
-
 def _q(sql):
     return sql.replace("?", "%s") if USE_PG else sql
 
 
-def execute(sql, params=()):
-    con = _connect()
+_lock = threading.RLock()
+_con = None
+_ready = False
+
+
+def _open():
+    if USE_PG:
+        import psycopg
+        return psycopg.connect(DATABASE_URL, autocommit=True, connect_timeout=8,
+                               keepalives=1, keepalives_idle=30, keepalives_interval=10, keepalives_count=3)
+    con = sqlite3.connect(LOCAL_PATH, timeout=10, check_same_thread=False)
+    con.isolation_level = None  # autocommit
+    return con
+
+
+def _reset():
+    global _con, _ready
     try:
-        con.execute(_q(sql), params)
-    finally:
-        con.close()
+        if _con is not None:
+            _con.close()
+    except Exception:
+        pass
+    _con = None
+    _ready = False
+
+
+def _get():
+    """اتصال واحد مستمر (بدل فتح اتصال جديد لكل عملية = بطيء). ينشئ الجداول أول مرة."""
+    global _con, _ready
+    if _con is None:
+        _con = _open()
+        _ready = False
+    if not _ready:
+        for s in SCHEMA:
+            _con.execute(s)
+        old = (datetime.now(timezone.utc) - timedelta(days=60)).isoformat(timespec="seconds")
+        _con.execute(_q("DELETE FROM poll_map WHERE sent_at < ?"), (old,))
+        _ready = True
+        log.info("stats storage ready (%s)", "postgres" if USE_PG else "local sqlite: " + LOCAL_PATH)
+    return _con
+
+
+def _run(fn):
+    """ينفّذ عملية على الاتصال المستمر؛ إذا انقطع الاتصال (Neon بينيّم) يعيد المحاولة مرة."""
+    with _lock:
+        for attempt in (1, 2):
+            try:
+                return fn(_get())
+            except Exception:
+                _reset()
+                if attempt == 2:
+                    raise
+
+
+def execute(sql, params=()):
+    _run(lambda con: con.execute(_q(sql), params))
+
+
+def executemany(sql, rows):
+    def go(con):
+        cur = con.cursor()
+        cur.executemany(_q(sql), rows)
+    _run(go)
 
 
 def fetch(sql, params=()):
-    con = _connect()
-    try:
-        cur = con.execute(_q(sql), params)
-        return cur.fetchall()
-    finally:
-        con.close()
+    return _run(lambda con: con.execute(_q(sql), params).fetchall())
 
 
-def init():
-    con = _connect()
-    try:
-        for s in SCHEMA:
-            con.execute(s)
-        # نظّف جدول poll_map من الأقدم من 60 يوم
-        old = (datetime.now(timezone.utc) - timedelta(days=60)).isoformat(timespec="seconds")
-        con.execute(_q("DELETE FROM poll_map WHERE sent_at < ?"), (old,))
-    finally:
-        con.close()
-    log.info("stats storage ready (%s)", "postgres" if USE_PG else "local sqlite: " + LOCAL_PATH)
+def warmup():
+    fetch("SELECT 1")
 
 
 # ---------------------------------------------------------------- كتابة
@@ -111,6 +146,24 @@ def save_poll(poll_id, user_id, batch_id, question_key, subject_id, subject_name
         "INSERT INTO poll_map(poll_id, user_id, batch_id, question_key, subject_id, subject_name, year, semester, "
         "correct_index, sent_at) VALUES(?,?,?,?,?,?,?,?,?,?) ON CONFLICT(poll_id) DO NOTHING",
         (poll_id, user_id, batch_id, question_key, subject_id, subject_name, year, semester, correct_index, now()))
+
+
+def save_polls(rows):
+    """rows: (poll_id, user_id, batch_id, question_key, subject_id, subject_name, year, semester, correct_index)"""
+    t = now()
+    executemany(
+        "INSERT INTO poll_map(poll_id, user_id, batch_id, question_key, subject_id, subject_name, year, semester, "
+        "correct_index, sent_at) VALUES(?,?,?,?,?,?,?,?,?,?) ON CONFLICT(poll_id) DO NOTHING",
+        [tuple(r) + (t,) for r in rows])
+
+
+def insert_answer(poll_id, user_id, question_key, subject_id, subject_name, year, semester, chosen, correct):
+    ok = 1 if chosen == correct else 0
+    execute(
+        "INSERT INTO answers(poll_id, user_id, question_key, subject_id, subject_name, year, semester, chosen, "
+        "is_correct, answered_at) VALUES(?,?,?,?,?,?,?,?,?,?) ON CONFLICT(poll_id, user_id) DO NOTHING",
+        (poll_id, user_id, question_key, subject_id, subject_name, year, semester, chosen, ok, now()))
+    return ok
 
 
 def record_answer(poll_id, user_id, chosen):
@@ -136,14 +189,15 @@ def finish_run(run_id, user_id, subject_id):
 
 
 def run_status(user_id, run_id):
-    """(انتهى الإرسال؟, عدد أسئلة المحاولة, صح, غلط)"""
-    fin = fetch("SELECT 1 FROM runs WHERE run_id=?", (run_id,))
-    total = fetch("SELECT COUNT(*) FROM poll_map WHERE batch_id=?", (run_id,))[0][0]
+    """(انتهى الإرسال؟, عدد أسئلة المحاولة, صح, غلط) باستعلام واحد"""
     r = fetch(
-        "SELECT COALESCE(SUM(a.is_correct),0), COUNT(*) FROM answers a "
-        "JOIN poll_map p ON p.poll_id=a.poll_id WHERE p.batch_id=? AND a.user_id=?", (run_id, user_id))[0]
-    right, answered = int(r[0]), int(r[1])
-    return bool(fin), int(total), right, answered - right
+        "SELECT (SELECT COUNT(*) FROM runs WHERE run_id=?), (SELECT COUNT(*) FROM poll_map WHERE batch_id=?), "
+        "(SELECT COALESCE(SUM(a.is_correct),0) FROM answers a JOIN poll_map p ON p.poll_id=a.poll_id "
+        " WHERE p.batch_id=? AND a.user_id=?), "
+        "(SELECT COUNT(*) FROM answers a JOIN poll_map p ON p.poll_id=a.poll_id WHERE p.batch_id=? AND a.user_id=?)",
+        (run_id, run_id, run_id, user_id, run_id, user_id))[0]
+    fin, total, right, answered = int(r[0]), int(r[1]), int(r[2]), int(r[3])
+    return bool(fin), total, right, answered - right
 
 
 # ---------------------------------------------------------------- قراءة (تحليل الأدمن)
