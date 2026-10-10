@@ -5,6 +5,7 @@
 """
 
 import asyncio
+import collections
 import json
 import re
 import uuid
@@ -88,12 +89,42 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 
 
 async def safe(fn, *args, default=None):
-    """تنفيذ دالة الإحصائيات بخيط منفصل؛ أي خطأ ما بيوقّف البوت."""
+    """تنفيذ دالة الإحصائيات بخيط منفصل؛ أي خطأ أو تأخير ما بيوقّف البوت."""
     try:
-        return await asyncio.to_thread(fn, *args)
+        return await asyncio.wait_for(asyncio.to_thread(fn, *args), timeout=20)
     except Exception as e:
-        log.warning("stats error in %s: %s", getattr(fn, "__name__", fn), e)
+        log.warning("stats error in %s: %r", getattr(fn, "__name__", fn), e)
         return default
+
+
+_tasks = set()
+
+
+def bg(coro):
+    """تشغيل بالخلفية (ما ننتظر النتيجة) حتى ما يتأخر الرد على الطالب."""
+    t = asyncio.get_running_loop().create_task(coro)
+    _tasks.add(t)
+    t.add_done_callback(_tasks.discard)
+    return t
+
+
+POLLS = collections.OrderedDict()  # poll_id -> معلومات السؤال (بالذاكرة، بدون انتظار قاعدة البيانات)
+FINISHED = set()  # محاولات انرسلت كل أسئلتها
+PENDING = {}  # run_id -> مهمة حفظ الـ polls بالخلفية
+SEEN = set()  # مستخدمين انسجلوا بهالتشغيل
+RESULT_SENT = set()  # (run_id, user_id) انبعتت نتيجتهم، حتى ما تتكرر
+
+
+def remember_poll(poll_id, meta):
+    POLLS[poll_id] = meta
+    while len(POLLS) > 5000:
+        POLLS.popitem(last=False)
+
+
+def touch_once(user):
+    if user and user.id not in SEEN:
+        SEEN.add(user.id)
+        bg(safe(stats.touch_user, user.id, user.username, user.first_name))
 
 
 def subject_info(subject_id):
@@ -205,9 +236,7 @@ def year_menu():
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data.clear()
-    u = update.effective_user
-    if u:
-        await safe(stats.touch_user, u.id, u.username, u.first_name)
+    touch_once(update.effective_user)
     text, markup = year_menu()
     await update.effective_message.reply_text(
         "أهلاً بك في بنك أسئلة الدورات السابقة 📚\n" + text,
@@ -226,6 +255,22 @@ def set_state(context, state, **values):
 
 
 NEXT_LABEL = "➡️ التالي"
+
+
+def save_in_background(run_id, rows, chat_id, subject_id, final):
+    prev = PENDING.get(run_id)
+    if final:
+        FINISHED.add(run_id)
+
+    async def job():
+        if prev and not prev.done():
+            await asyncio.wait([prev])
+        if rows:
+            await safe(stats.save_polls, rows)
+        if final:
+            await safe(stats.finish_run, run_id, chat_id, subject_id)
+
+    PENDING[run_id] = bg(job())
 
 
 async def send_batch(chat_id, context, subject_id, offset=0):
@@ -267,6 +312,7 @@ async def send_batch(chat_id, context, subject_id, offset=0):
     if offset == 0 or not context.user_data.get("run_id"):
         context.user_data["run_id"] = uuid.uuid4().hex[:16]
     run_id = context.user_data["run_id"]
+    new_rows = []
 
     # الترقيم يكمل من الدفعة السابقة (11، 12، ...).
     for i, q in enumerate(rows, start=offset + 1):
@@ -297,17 +343,17 @@ async def send_batch(chat_id, context, subject_id, offset=0):
                 correct_option_id=q["correct_index"],
                 explanation=clip(q["explanation"] or "", 200) or None,
             )
-            await safe(
-                stats.save_poll, msg.poll.id, chat_id, run_id, q["key"],
-                subj["id"], subj["name"], subj["year"], subj["semester"],
-                q["correct_index"],
-            )
+            row = (msg.poll.id, chat_id, run_id, q["key"], subj["id"], subj["name"],
+                   subj["year"], subj["semester"], q["correct_index"])
+            remember_poll(msg.poll.id, row)
+            new_rows.append(row)
         except Exception as e:
             # سؤال مرفوض من تيليجرام، نكمل إرسال باقي الأسئلة.
             log.warning("poll failed q=%s: %s", q["key"], e)
 
     sent_until = offset + len(rows)
     remaining = total - sent_until
+    save_in_background(run_id, new_rows, chat_id, subject_id, final=remaining <= 0)
 
     if remaining > 0:
         # لسا في أسئلة: زر "التالي" (الدفعة الأخيرة قد تكون أقل من 10).
@@ -328,8 +374,6 @@ async def send_batch(chat_id, context, subject_id, offset=0):
         return
 
     # آخر دفعة انرسلت: بعد ما يجاوب الطالب على الكل بتنبعت النتيجة تلقائياً.
-    await safe(stats.finish_run, run_id, chat_id, subject_id)
-
     # بعد إرسال آخر سؤال فقط نرسل رسالة النهاية.
     await context.bot.send_message(
         chat_id,
@@ -451,7 +495,7 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 break
 
         if year is not None:
-            await safe(stats.log_event, message.from_user.id, "year", year)
+            bg(safe(stats.log_event, message.from_user.id, "year", year))
             await show_semesters(message, context, year)
             return
 
@@ -521,10 +565,10 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         subject_id = subject_map.get(text)
         if subject_id is not None:
             si = subject_info(int(subject_id))
-            await safe(
+            bg(safe(
                 stats.log_event, message.from_user.id, "subject",
                 si["year"], si["semester"], int(subject_id), si["name"],
-            )
+            ))
             await send_batch(
                 message.chat_id,
                 context,
@@ -537,10 +581,10 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if state == "questions":
         if text == NEXT_LABEL:
             si = subject_info(int(context.user_data["subject_id"]))
-            await safe(
+            bg(safe(
                 stats.log_event, message.from_user.id, "next",
                 si["year"], si["semester"], si["id"], si["name"],
-            )
+            ))
             await send_batch(
                 message.chat_id,
                 context,
@@ -567,25 +611,32 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 
-async def on_poll_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    pa = update.poll_answer
-    if not pa or not pa.option_ids or not pa.user:  # سحب التصويت
-        return
+async def process_answer(pa, bot):
     u = pa.user
-    await safe(stats.touch_user, u.id, u.username, u.first_name)
-    res = await safe(stats.record_answer, pa.poll_id, u.id, pa.option_ids[0])
-    if res is None:  # ممكن الإجابة وصلت قبل حفظ الـ poll
-        await asyncio.sleep(1.5)
-        res = await safe(stats.record_answer, pa.poll_id, u.id, pa.option_ids[0])
-    if not res:
-        return
-    run_id, subject_id, _ = res
+    touch_once(u)
+    chosen = pa.option_ids[0]
+    meta = POLLS.get(pa.poll_id)
+    if meta:
+        poll_id, _, run_id, key, sid, sname, year, sem, correct = meta
+        task = PENDING.get(run_id)
+        if task and not task.done():  # لا نكتب الإجابة قبل ما ينحفظ الـ poll
+            await asyncio.wait([task], timeout=20)
+        await safe(stats.insert_answer, poll_id, u.id, key, sid, sname, year, sem, chosen, correct)
+        if run_id not in FINISHED:
+            return  # لسا في أسئلة ما انرسلت؛ ما في داعي نسأل قاعدة البيانات
+        subject_id = sid
+    else:  # بعد إعادة تشغيل البوت: نرجع للقاعدة
+        res = await safe(stats.record_answer, pa.poll_id, u.id, chosen)
+        if not res:
+            return
+        run_id, subject_id, _ = res
     st = await safe(stats.run_status, u.id, run_id)
     if not st:
         return
     finished, total, right, wrong = st
     # النتيجة بس لما انرسلت كل أسئلة المادة وجاوب الطالب عليها كلها
-    if finished and total and right + wrong >= total:
+    if finished and total and right + wrong >= total and (run_id, u.id) not in RESULT_SENT:
+        RESULT_SENT.add((run_id, u.id))
         si = subject_info(subject_id)
         text = (
             f"🏁 خلصت أسئلة «{si['name']}»\n\n"
@@ -594,9 +645,16 @@ async def on_poll_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"🎯 النسبة: {100 * right // total}%"
         )
         try:
-            await context.bot.send_message(u.id, text)
+            await bot.send_message(u.id, text)
         except Exception as e:
             log.warning("result send failed: %s", e)
+
+
+async def on_poll_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    pa = update.poll_answer
+    if not pa or not pa.option_ids or not pa.user:  # سحب التصويت
+        return
+    bg(process_answer(pa, context.bot))  # بالخلفية: ما نوقّف معالجة باقي الضغطات
 
 
 def is_admin(update):
@@ -624,13 +682,16 @@ async def cmd_myid(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.effective_message.reply_text(f"رقمك: {update.effective_user.id}")
 
 
+async def post_init(app):
+    bg(safe(stats.warmup))  # يجهّز الاتصال والجداول بالخلفية بدون ما يعطّل تشغيل البوت
+
+
 def main():
-    stats.init()
     token = os.environ.get("BOT_TOKEN")
     if not token:
         raise SystemExit("حط التوكن بمتغير البيئة BOT_TOKEN")
 
-    app = Application.builder().token(token).build()
+    app = Application.builder().token(token).post_init(post_init).build()
 
     app.add_handler(CommandHandler(["start", "menu"], start))
     app.add_handler(CommandHandler("stats", cmd_stats))
