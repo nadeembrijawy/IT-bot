@@ -19,6 +19,7 @@ on:
       - 'sources/**'
       - 'media/**'
       - 'inbox/**/*.pdf'
+      - '.github/workflows/student-submissions.yml'
   workflow_dispatch:
 
 permissions:
@@ -233,7 +234,7 @@ jobs:
           # reported for the owner during PR review. Only a commit associated
           # with a merged GitHub PR is allowed to replace such an answer.
           APPROVAL_FLAGS=()
-          if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+          if [ "$GITHUB_EVENT_NAME" = "push" ] || [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
             if MERGED_PR="$(gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/pulls" --jq 'any(.[]; .merged_at != null)')"; then
               if [ "$MERGED_PR" = "true" ]; then
                 APPROVAL_FLAGS+=(--approved-lecture-overwrites)
@@ -330,7 +331,6 @@ jobs:
 
       - name: Commit the rebuilt database and deduplication state to main
         if: ${{ github.event_name != 'pull_request' }}
-        working-directory: guide/IT-bot-guide-v2
         env:
           ROOT: ${{ github.workspace }}
         run: |
