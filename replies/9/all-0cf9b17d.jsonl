@@ -1,0 +1,26 @@
+{"id":"y2:p28","a":"D","src":"INFERRED","e":"عنصر <form> كتلي (block-level) ويأخذ سطراً كاملاً، بينما img وsup وlabel عناصر مضمّنة (inline)."}
+{"id":"y2:p29","a":"B","src":"INFERRED","e":"يترجم المتصفح اسم النطاق إلى عنوان IP عبر DNS أولاً، ثم يرسل طلب HTTP إلى الخادم."}
+{"id":"y2:p31","a":"B","src":"INFERRED","e":"العناصر الدلالية تحسّن البنية الدلالية وإمكانية الوصول وفهم محركات البحث، ولا تقلل حجم الملف."}
+{"id":"y2:p34","a":"C","src":"INFERRED","e":"TCP يضمن نقل البيانات بشكل موثوق؛ IP للعنونة وHTTP بروتوكول طبقة التطبيق وليس للتشفير."}
+{"id":"y2:p36","a":"C","src":"INFERRED","e":"section لكل فئة (رياضة، اقتصاد، سياسة) وarticle لكل خبر مستقل لأنه محتوى قائم بذاته."}
+{"id":"y2:p38","a":"C","src":"INFERRED","e":"القيم الصادقة (truthy) هي \"Hello\" وtrue و5 فقط؛ أما 0 وundefined و\"\" فكاذبة، فالعدّاد 3."}
+{"id":"y2:p39","a":"A","src":"INFERRED","e":"slice(4,-4) تعطي \"Develop\"، وآخر ظهور للحرف e في هذه السلسلة عند الفهرس 3."}
+{"id":"y2:p40","a":"B","src":"INFERRED","e":"كل استدعاء لـ Symbol() ينشئ قيمة فريدة غير قابلة للتغيير مستقلة عن الوصف، فالمقارنة false."}
+{"id":"y2:p42","a":"B","src":"INFERRED","e":"substring(7,10) تعطي \"Jav\" وهي لا تتضمن \"Java\"، فالنتيجة false."}
+{"id":"y2:p43","a":"C","src":"INFERRED","e":"text-transform: uppercase للأحرف الكبيرة وfont-weight: bold للخط الغامق."}
+{"id":"y2:p44","a":"C","src":"INFERRED","e":"city معرّف بـ const داخل الدالة (نطاق محلي)، فالوصول إليه خارجها يسبب ReferenceError."}
+{"id":"y2:p45","a":"A","src":"INFERRED","e":"النمط: حرف كبير ثم 3 أحرف صغيرة ثم رقمان؛ Aabc12 فقط يطابقه."}
+{"id":"y2:p46","a":"B","src":"INFERRED","e":"رابط الاتصال الهاتفي الصحيح يستخدم الخاصية href مع البروتوكول tel:."}
+{"id":"y2:p47","a":"B","src":"INFERRED","e":"select يتيح اختيار قيمة واحدة؛ أزرار radio بأسماء مختلفة تسمح باختيارين وcheckbox متعدد الاختيار."}
+{"id":"y2:p48","a":"A","src":"INFERRED","e":"padding يحدد الهوامش الداخلية للجوانب الأربعة، أما margin فللهوامش الخارجية."}
+{"id":"y2:p50","a":"B","src":"INFERRED","e":"reverse تعطي [z,y,x]، وunshift تضيف w في البداية، وpop تحذف x فتصبح [w,z,y]."}
+{"id":"y2:p52","src":"NOT-FOUND"}
+{"id":"y2:p53","a":"C","src":"INFERRED","e":"الدالة المعلنة تُرفع كاملة فتعمل Hello!، أما sayHi فمتغير var قيمته undefined قبل التعيين، فاستدعاؤه TypeError."}
+{"id":"y2:p54","a":"D","src":"INFERRED","e":"الدوال السهمية لا تملك كائن arguments الخاص بها، فاستخدامه يسبب ReferenceError."}
+{"id":"y2:p55","a":"C","src":"INFERRED","e":"name يأخذ القيمة الافتراضية Guest، لكن arguments[1] غير موجود لأن الاستدعاء بلا وسائط فيكون undefined."}
+{"id":"y2:p56","a":"C","src":"INFERRED","e":"nums2 تشير إلى نفس المصفوفة (مرجع)، فتظهر إضافة 50 في النهاية: [3,6,9,50]."}
+{"id":"y2:p58","src":"NOT-FOUND"}
+{"id":"y2:p60","a":"B","src":"INFERRED","e":"var نطاقها الدالة أيضاً، فالوصول إلى population خارجها يسبب ReferenceError بعد طباعة UK."}
+{"id":"y2:p64","src":"NOT-FOUND"}
+{"id":"y2:p65","a":"A","src":"INFERRED","e":"splice(2,1,7) تحذف [9] وتضع 7 فتصبح [3,6,7,12]، وsome(num<5) ترجع true بسبب العدد 3."}
+{"id":"y2:p66","a":"B","src":"INFERRED","e":"fill تعطي [6,1,1,1,9]، ثم copyWithin(1,3) تنسخ [1,9] إلى الفهرس 1 فتصبح [6,1,9,1,9]."}
