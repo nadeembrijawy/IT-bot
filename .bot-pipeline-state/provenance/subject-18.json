@@ -1,6 +1,6 @@
 {
  "y3:img34": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -8,7 +8,7 @@
   "src": "INFERRED"
  },
  "y3:p240": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "01_introduction_to_software_engineering_a6afe537b87ecfbeece0154f08aa9b93-1.md",
   "lecture": "01_introduction_to_software_engineering_a6afe537b87ecfbeece0154f08aa9b93-1.md",
   "quote": null,
@@ -16,7 +16,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p241": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "01_introduction_to_software_engineering_a6afe537b87ecfbeece0154f08aa9b93-1.md",
   "lecture": "01_introduction_to_software_engineering_a6afe537b87ecfbeece0154f08aa9b93-1.md",
   "quote": null,
@@ -24,7 +24,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p242": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -32,14 +32,14 @@
   "src": "INFERRED"
  },
  "y3:p243": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "introduction_to_the_diagrams_of_uml_2_x_9c571b3a2c1d76d71c8c87028d67c5fc-2.md",
   "quote": "This includes class, composite structure, component, deployment, object, and package diagrams",
   "ref": "p1 Structure diagrams",
   "src": "LECTURE"
  },
  "y3:p244": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "01_introduction_to_software_engineering_a6afe537b87ecfbeece0154f08aa9b93-1.md",
   "lecture": "01_introduction_to_software_engineering_a6afe537b87ecfbeece0154f08aa9b93-1.md",
   "quote": null,
@@ -47,7 +47,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p245": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -55,7 +55,7 @@
   "src": "INFERRED"
  },
  "y3:p246": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -63,7 +63,7 @@
   "src": "INFERRED"
  },
  "y3:p247": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -71,7 +71,7 @@
   "src": "INFERRED"
  },
  "y3:p248": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -79,7 +79,7 @@
   "src": "INFERRED"
  },
  "y3:p249": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -87,7 +87,7 @@
   "src": "INFERRED"
  },
  "y3:p250": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -95,7 +95,7 @@
   "src": "INFERRED"
  },
  "y3:p251": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -103,7 +103,7 @@
   "src": "INFERRED"
  },
  "y3:p252": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -111,7 +111,7 @@
   "src": "INFERRED"
  },
  "y3:p253": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -119,7 +119,7 @@
   "src": "INFERRED"
  },
  "y3:p255": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -127,7 +127,7 @@
   "src": "INFERRED"
  },
  "y3:p256": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -135,7 +135,7 @@
   "src": "INFERRED"
  },
  "y3:p257": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "01_introduction_to_software_engineering_a6afe537b87ecfbeece0154f08aa9b93-1.md",
   "lecture": "01_introduction_to_software_engineering_a6afe537b87ecfbeece0154f08aa9b93-1.md",
   "quote": null,
@@ -143,14 +143,14 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p259": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "uml_sequence_diagrams_an_agile_introduction_4256fce8a72d0c9a43853db0fb9318e5-4.md",
   "quote": "messages where the sender waits for the result before continuing",
   "ref": "p4 asynchronous vs synchronous",
   "src": "LECTURE"
  },
  "y3:p260": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -158,7 +158,7 @@
   "src": "INFERRED"
  },
  "y3:p261": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -166,7 +166,7 @@
   "src": "INFERRED"
  },
  "y3:p265": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -174,7 +174,7 @@
   "src": "INFERRED"
  },
  "y3:p267": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,

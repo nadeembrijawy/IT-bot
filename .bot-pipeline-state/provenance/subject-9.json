@@ -1,6 +1,6 @@
 {
  "y2:p28": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -8,7 +8,7 @@
   "src": "INFERRED"
  },
  "y2:p29": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -16,15 +16,15 @@
   "src": "INFERRED"
  },
  "y2:p30": {
-  "date": "2026-11-03",
-  "file": null,
+  "date": "2026-11-05",
+  "file": "par8.md",
   "lecture": null,
-  "quote": null,
-  "ref": null,
-  "src": "INFERRED"
+  "quote": ".avatar { border-radius: 50%; }` → قاعدة `CSS` عادية تجعل الصورة دائرية",
+  "ref": "CSS",
+  "src": "LECTURE"
  },
  "y2:p31": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -32,23 +32,23 @@
   "src": "INFERRED"
  },
  "y2:p32": {
-  "date": "2026-11-03",
-  "file": null,
+  "date": "2026-11-05",
+  "file": "wp-lecture-3.md",
   "lecture": null,
-  "quote": null,
-  "ref": null,
-  "src": "INFERRED"
+  "quote": "Lists\nlist-style\nlist-style-image\nlist-style-type\nProperties\nCommon CSS properties continued",
+  "ref": "Properties",
+  "src": "LECTURE"
  },
  "y2:p33": {
-  "date": "2026-11-03",
-  "file": null,
+  "date": "2026-11-05",
+  "file": "par4.md",
   "lecture": null,
-  "quote": null,
-  "ref": null,
-  "src": "INFERRED"
+  "quote": "الـ `destructuring` يسمح باستخراج قيم من `array` أو `object` وتوزيعها على متغيرات مباشرة",
+  "ref": "Destructuring",
+  "src": "LECTURE"
  },
  "y2:p34": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -56,15 +56,15 @@
   "src": "INFERRED"
  },
  "y2:p35": {
-  "date": "2026-11-03",
-  "file": null,
+  "date": "2026-11-05",
+  "file": "par1.md",
   "lecture": null,
-  "quote": null,
-  "ref": null,
-  "src": "INFERRED"
+  "quote": "`2xx` = نجاح، `3xx` = إعادة توجيه، `4xx` = خطأ من طرف الـ `client`",
+  "ref": "HTTP Status Codes",
+  "src": "LECTURE"
  },
  "y2:p36": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -72,15 +72,15 @@
   "src": "INFERRED"
  },
  "y2:p37": {
-  "date": "2026-11-03",
-  "file": "ويب-نظري-مـ5.md",
-  "lecture": "ويب-نظري-مـ5.md",
-  "quote": null,
-  "ref": "p30",
-  "src": "LECTURE_PARAPHRASE"
+  "date": "2026-11-05",
+  "file": "par1.md",
+  "lecture": null,
+  "quote": "يجلب بيانات فقط، **لا يغيّر** أي شي على السيرفر — مثال: فتح صفحة ويب.",
+  "ref": "HTTP Methods",
+  "src": "LECTURE"
  },
  "y2:p38": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -88,7 +88,7 @@
   "src": "INFERRED"
  },
  "y2:p39": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -96,7 +96,7 @@
   "src": "INFERRED"
  },
  "y2:p40": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -104,15 +104,15 @@
   "src": "INFERRED"
  },
  "y2:p41": {
-  "date": "2026-11-03",
-  "file": null,
+  "date": "2026-11-05",
+  "file": "par4.md",
   "lecture": null,
-  "quote": null,
-  "ref": null,
-  "src": "INFERRED"
+  "quote": "الـ `spread operator` يوسّع array أو object إلى عناصر منفردة، بينما الـ `rest operator` يجمع عناصر متعددة في array أو object واحد",
+  "ref": "Spread Operator",
+  "src": "LECTURE"
  },
  "y2:p42": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -120,7 +120,7 @@
   "src": "INFERRED"
  },
  "y2:p43": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -128,7 +128,7 @@
   "src": "INFERRED"
  },
  "y2:p44": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -136,7 +136,7 @@
   "src": "INFERRED"
  },
  "y2:p45": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": "ويب-نظري-مـ5.md",
   "lecture": "ويب-نظري-مـ5.md",
   "quote": null,
@@ -144,7 +144,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y2:p46": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -152,7 +152,7 @@
   "src": "INFERRED"
  },
  "y2:p47": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": "ويب-نظري-مـ5.md",
   "lecture": "ويب-نظري-مـ5.md",
   "quote": null,
@@ -160,7 +160,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y2:p48": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -168,15 +168,15 @@
   "src": "INFERRED"
  },
  "y2:p49": {
-  "date": "2026-11-03",
-  "file": null,
+  "date": "2026-11-05",
+  "file": "wp-lecture-3.md",
   "lecture": null,
-  "quote": null,
-  "ref": null,
-  "src": "INFERRED"
+  "quote": "Selects elements that the mouse pointer is currently above.",
+  "ref": "Pseudo-Class and Pseudo-Element Selectors",
+  "src": "LECTURE"
  },
  "y2:p50": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -184,7 +184,7 @@
   "src": "INFERRED"
  },
  "y2:p52": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -192,7 +192,7 @@
   "src": "INFERRED"
  },
  "y2:p53": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -200,7 +200,7 @@
   "src": "INFERRED"
  },
  "y2:p54": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -208,7 +208,7 @@
   "src": "INFERRED"
  },
  "y2:p55": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -216,23 +216,31 @@
   "src": "INFERRED"
  },
  "y2:p56": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
   "ref": null,
   "src": "INFERRED"
+ },
+ "y2:p58": {
+  "date": "2026-11-05",
+  "file": "ويب-نظري-مـ5.md",
+  "lecture": "ويب-نظري-مـ5.md",
+  "quote": null,
+  "ref": "p9",
+  "src": "LECTURE_PARAPHRASE"
  },
  "y2:p59": {
-  "date": "2026-11-03",
-  "file": null,
+  "date": "2026-11-05",
+  "file": "wp-lecture-3.md",
   "lecture": null,
-  "quote": null,
-  "ref": null,
-  "src": "INFERRED"
+  "quote": "Matches any <a> element whose href attribute ends with",
+  "ref": "Attribute Selectors",
+  "src": "LECTURE"
  },
  "y2:p60": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -240,15 +248,23 @@
   "src": "INFERRED"
  },
  "y2:p61": {
-  "date": "2026-11-03",
-  "file": null,
+  "date": "2026-11-05",
+  "file": "wp-lecture-3.md",
   "lecture": null,
-  "quote": null,
-  "ref": null,
-  "src": "INFERRED"
+  "quote": "Selects all the <p> elements that share the same parent as the",
+  "ref": "Contextual Selectors",
+  "src": "LECTURE"
  },
  "y2:p62": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
+  "file": "par4.md",
+  "lecture": null,
+  "quote": "الـ `spread operator` يوسّع array أو object إلى عناصر منفردة، بينما الـ `rest operator` يجمع عناصر متعددة في array أو object واحد",
+  "ref": "Spread Operator",
+  "src": "LECTURE"
+ },
+ "y2:p64": {
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -256,7 +272,7 @@
   "src": "INFERRED"
  },
  "y2:p65": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -264,7 +280,7 @@
   "src": "INFERRED"
  },
  "y2:p66": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,

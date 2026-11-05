@@ -95,6 +95,14 @@
   "ref": "8.4 Benign Nondeterminism",
   "src": "LECTURE_PARAPHRASE"
  },
+ "y4:p293": {
+  "date": "2026-11-05",
+  "file": "par3.md",
+  "lecture": "par3.md",
+  "quote": null,
+  "ref": "8.3 Functional vs Structural Determinism",
+  "src": "LECTURE_PARAPHRASE"
+ },
  "y4:p296": {
   "date": "2026-11-05",
   "file": "par7.md",

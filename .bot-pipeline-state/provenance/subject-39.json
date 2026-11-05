@@ -63,6 +63,14 @@
   "ref": "Jaccard Coefficient",
   "src": "LECTURE_PARAPHRASE"
  },
+ "y5:p334": {
+  "date": "2026-11-05",
+  "file": "par2.md",
+  "lecture": "par2.md",
+  "quote": null,
+  "ref": "Sequential Data",
+  "src": "LECTURE_PARAPHRASE"
+ },
  "y5:p336": {
   "date": "2026-11-05",
   "file": "par6-sec2.md",
@@ -117,6 +125,14 @@
   "lecture": "par1.md",
   "quote": null,
   "ref": "How Do Machines Learn?",
+  "src": "LECTURE_PARAPHRASE"
+ },
+ "y5:p349": {
+  "date": "2026-11-05",
+  "file": "par8-sec2.md",
+  "lecture": "par8-sec2.md",
+  "quote": null,
+  "ref": "AdaBoost",
   "src": "LECTURE_PARAPHRASE"
  },
  "y5:p350": {

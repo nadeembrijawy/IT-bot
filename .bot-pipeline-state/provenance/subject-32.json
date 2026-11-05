@@ -128,12 +128,28 @@
   "ref": null,
   "src": "INFERRED"
  },
+ "y5:p29": {
+  "date": "2026-11-05",
+  "file": null,
+  "lecture": null,
+  "quote": null,
+  "ref": null,
+  "src": "INFERRED"
+ },
  "y5:p30": {
   "date": "2026-11-05",
   "file": "تجارة-نظري-مـ2.md",
   "quote": "Effective firewalls protect against online threats such as XSS",
   "ref": "p16",
   "src": "LECTURE"
+ },
+ "y5:p31": {
+  "date": "2026-11-05",
+  "file": null,
+  "lecture": null,
+  "quote": null,
+  "ref": null,
+  "src": "INFERRED"
  },
  "y5:p32": {
   "date": "2026-11-05",

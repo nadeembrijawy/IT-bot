@@ -22,6 +22,14 @@
   "ref": "12.3. أمثلة إضافية على حالات آمنة/غير آمنة",
   "src": "LECTURE"
  },
+ "y4:p362": {
+  "date": "2026-11-05",
+  "file": "par1-sec3.md",
+  "lecture": "par1-sec3.md",
+  "quote": null,
+  "ref": "Binary Semaphore (mutex)",
+  "src": "LECTURE_PARAPHRASE"
+ },
  "y4:p364": {
   "date": "2026-11-05",
   "file": "par1-sec3.md",
@@ -68,6 +76,14 @@
   "quote": "homonyms (same address, different data)",
   "ref": "Homonyms / Synonyms",
   "src": "LECTURE"
+ },
+ "y4:p371": {
+  "date": "2026-11-05",
+  "file": "par1-sec4.md",
+  "lecture": "par1-sec4.md",
+  "quote": null,
+  "ref": "17. أثر signal() في المراقب عند غياب عملية منتظرة",
+  "src": "LECTURE_PARAPHRASE"
  },
  "y4:p378": {
   "date": "2026-11-05",

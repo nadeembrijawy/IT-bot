@@ -55,6 +55,14 @@
   "ref": null,
   "src": "INFERRED"
  },
+ "y5:p255": {
+  "date": "2026-11-05",
+  "file": "par5.md",
+  "lecture": "par5.md",
+  "quote": null,
+  "ref": "5.2 User Story",
+  "src": "LECTURE_PARAPHRASE"
+ },
  "y5:p256": {
   "date": "2026-11-05",
   "file": "par6.md",

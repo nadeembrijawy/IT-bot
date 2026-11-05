@@ -47,6 +47,14 @@
   "ref": "Resource sharing",
   "src": "LECTURE_PARAPHRASE"
  },
+ "y5:p293": {
+  "date": "2026-11-05",
+  "file": "par1.md",
+  "lecture": "par1.md",
+  "quote": null,
+  "ref": "Failure transparency",
+  "src": "LECTURE_PARAPHRASE"
+ },
  "y5:p294": {
   "date": "2026-11-05",
   "file": "par1.md",
@@ -79,6 +87,14 @@
   "ref": "Failure Handling",
   "src": "LECTURE_PARAPHRASE"
  },
+ "y5:p298": {
+  "date": "2026-11-05",
+  "file": "par1.md",
+  "lecture": "par1.md",
+  "quote": null,
+  "ref": "Client-Server model",
+  "src": "LECTURE_PARAPHRASE"
+ },
  "y5:p299": {
   "date": "2026-11-05",
   "file": null,
@@ -88,6 +104,14 @@
   "src": "INFERRED"
  },
  "y5:p301": {
+  "date": "2026-11-05",
+  "file": "par2.md",
+  "lecture": "par2.md",
+  "quote": null,
+  "ref": "Failure model",
+  "src": "LECTURE_PARAPHRASE"
+ },
+ "y5:p302": {
   "date": "2026-11-05",
   "file": "par2.md",
   "lecture": "par2.md",
@@ -166,6 +190,14 @@
   "quote": null,
   "ref": "Monolithic kernel vs Microkernel",
   "src": "LECTURE_PARAPHRASE"
+ },
+ "y5:p312": {
+  "date": "2026-11-05",
+  "file": null,
+  "lecture": null,
+  "quote": null,
+  "ref": null,
+  "src": "INFERRED"
  },
  "y5:p313": {
   "date": "2026-11-05",

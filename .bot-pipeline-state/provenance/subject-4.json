@@ -1,6 +1,6 @@
 {
  "y1:p122": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": "دارات-2-نظري-مـ1.md",
   "lecture": "دارات-2-نظري-مـ1.md",
   "quote": null,
@@ -8,7 +8,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y1:p124": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": "دارات_الكترونية_المحاضرة_الرابعة-4.md",
   "lecture": "دارات_الكترونية_المحاضرة_الرابعة-4.md",
   "quote": null,
@@ -16,7 +16,15 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y1:p136": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
+  "file": null,
+  "lecture": null,
+  "quote": null,
+  "ref": null,
+  "src": "INFERRED"
+ },
+ "y1:p137": {
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -24,7 +32,7 @@
   "src": "INFERRED"
  },
  "y1:p138": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": "دارات-2-مـ3.md",
   "lecture": "دارات-2-مـ3.md",
   "quote": null,
@@ -32,7 +40,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y1:p139": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": "دارات-2-مـ3.md",
   "lecture": "دارات-2-مـ3.md",
   "quote": null,
@@ -40,7 +48,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y1:p140": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": "دارات-2-مـ3.md",
   "lecture": "دارات-2-مـ3.md",
   "quote": null,
@@ -48,7 +56,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y1:p141": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": "دارات-2-مـ2.md",
   "lecture": "دارات-2-مـ2.md",
   "quote": null,
@@ -56,7 +64,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y1:p142": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": "دارات-2-مـ3.md",
   "lecture": null,
   "quote": "منبع فلطية في الخرج v ds متحكم فيه بفلطية الدخل v gs",
@@ -64,7 +72,7 @@
   "src": "LECTURE"
  },
  "y1:p143": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -72,7 +80,7 @@
   "src": "INFERRED"
  },
  "y1:p144": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": null,
   "lecture": null,
   "quote": null,
@@ -80,15 +88,23 @@
   "src": "INFERRED"
  },
  "y1:p145": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": "دارات_الكترونية_المحاضرة_الرابعة-4.md",
   "lecture": "دارات_الكترونية_المحاضرة_الرابعة-4.md",
   "quote": null,
   "ref": "p60",
   "src": "LECTURE_PARAPHRASE"
  },
+ "y1:p146": {
+  "date": "2026-11-05",
+  "file": null,
+  "lecture": null,
+  "quote": null,
+  "ref": null,
+  "src": "INFERRED"
+ },
  "y1:p147": {
-  "date": "2026-11-03",
+  "date": "2026-11-05",
   "file": "دارات-2-نظري-مـ1.md",
   "lecture": "دارات-2-نظري-مـ1.md",
   "quote": null,

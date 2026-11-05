@@ -1,6 +1,6 @@
 {
  "y3:p160": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par3.md",
   "lecture": "par3.md",
   "quote": null,
@@ -8,21 +8,21 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p161": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par4.md",
   "quote": "∃x At(x,Stanford) ∧ Smart(x)",
   "ref": "التكميم الوجودي (Existential Quantification)",
   "src": "LECTURE"
  },
  "y3:p162": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par10.md",
   "quote": "Reinforcement learning: Rewards from sequence of actions",
   "ref": "أنواع التعلم — Types of Learning",
   "src": "LECTURE"
  },
  "y3:p163": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par5.md",
   "lecture": "par5.md",
   "quote": null,
@@ -30,35 +30,35 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p164": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par11.md",
   "quote": "its second derivative is always nonnegative",
   "ref": "Linear Regression — convex J()",
   "src": "LECTURE"
  },
  "y3:p165": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par10.md",
   "quote": "Humans can't explain their expertise",
   "ref": "When Do We Use ML?",
   "src": "LECTURE"
  },
  "y3:p170": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par10.md",
   "quote": "Symbolic functions: Decision trees",
   "ref": "Various Function Representations",
   "src": "LECTURE"
  },
  "y3:p171": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par10.md",
   "quote": "A well-defined learning task is given by ⟨P, T, E⟩",
   "ref": "تعريف Tom Mitchell — Defining the Learning Task",
   "src": "LECTURE"
  },
  "y3:p172": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par10.md",
   "quote": "Evolutionary Computation: Genetic Algorithms (GAs)",
   "ref": "Evolutionary Computation",

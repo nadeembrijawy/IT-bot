@@ -1,0 +1,82 @@
+{
+ "y2:p10": {
+  "date": "2026-11-05",
+  "file": null,
+  "lecture": null,
+  "quote": null,
+  "ref": null,
+  "src": "INFERRED"
+ },
+ "y2:p11": {
+  "date": "2026-11-05",
+  "file": null,
+  "lecture": null,
+  "quote": null,
+  "ref": null,
+  "src": "INFERRED"
+ },
+ "y2:p12": {
+  "date": "2026-11-05",
+  "file": null,
+  "lecture": null,
+  "quote": null,
+  "ref": null,
+  "src": "INFERRED"
+ },
+ "y2:p15": {
+  "date": "2026-11-05",
+  "file": "خوارزميات-1-ناديا-نظري-مـ3.md",
+  "lecture": "خوارزميات-1-ناديا-نظري-مـ3.md",
+  "quote": null,
+  "ref": "p29",
+  "src": "LECTURE_PARAPHRASE"
+ },
+ "y2:p16": {
+  "date": "2026-11-05",
+  "file": "خوارزميات-1-ناديا-نظري-مـ1.md",
+  "lecture": "خوارزميات-1-ناديا-نظري-مـ1.md",
+  "quote": null,
+  "ref": "p64",
+  "src": "LECTURE_PARAPHRASE"
+ },
+ "y2:p19": {
+  "date": "2026-11-05",
+  "file": null,
+  "lecture": null,
+  "quote": null,
+  "ref": null,
+  "src": "INFERRED"
+ },
+ "y2:p21": {
+  "date": "2026-11-05",
+  "file": "خوارزميات-1-ناديا-نظري-مـ1.md",
+  "lecture": "خوارزميات-1-ناديا-نظري-مـ1.md",
+  "quote": null,
+  "ref": "p20",
+  "src": "LECTURE_PARAPHRASE"
+ },
+ "y2:p24": {
+  "date": "2026-11-05",
+  "file": null,
+  "lecture": null,
+  "quote": null,
+  "ref": null,
+  "src": "INFERRED"
+ },
+ "y2:p4": {
+  "date": "2026-11-05",
+  "file": null,
+  "lecture": null,
+  "quote": null,
+  "ref": null,
+  "src": "INFERRED"
+ },
+ "y2:p5": {
+  "date": "2026-11-05",
+  "file": null,
+  "lecture": null,
+  "quote": null,
+  "ref": null,
+  "src": "INFERRED"
+ }
+}

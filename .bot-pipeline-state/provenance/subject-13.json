@@ -1,13 +1,13 @@
 {
  "y3:p100": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par7.md",
   "quote": "The protocols for flow control and error control belong to data link layer",
   "ref": "Flow Control & Error Control",
   "src": "LECTURE"
  },
  "y3:p101": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par6.md",
   "lecture": "par6.md",
   "quote": null,
@@ -15,7 +15,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p102": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par7.md",
   "lecture": null,
   "quote": "Flow control: Defines the way multiple frames are sent and tracked",
@@ -23,7 +23,7 @@
   "src": "LECTURE"
  },
  "y3:p103": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par1.md",
   "lecture": "par1.md",
   "quote": null,
@@ -31,7 +31,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p104": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par3.md",
   "lecture": "par3.md",
   "quote": null,
@@ -39,7 +39,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p105": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par3.md",
   "lecture": "par3.md",
   "quote": null,
@@ -47,7 +47,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p106": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par6.md",
   "lecture": "par6.md",
   "quote": null,
@@ -55,7 +55,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p107": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par1.md",
   "lecture": "par1.md",
   "quote": null,
@@ -63,28 +63,28 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p108": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par6.md",
   "quote": "Non contention access: Dedicated lines, Multiplexing",
   "ref": "Contention vs Non-contention",
   "src": "LECTURE"
  },
  "y3:p109": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par2.md",
   "quote": "Encoding – Assigning a meaning to signals",
   "ref": "Signals — Encoding",
   "src": "LECTURE"
  },
  "y3:p110": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par5.md",
   "quote": "Star Topology: Control is centralised",
   "ref": "Star Topology",
   "src": "LECTURE"
  },
  "y3:p111": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par4.md",
   "lecture": "par4.md",
   "quote": null,
@@ -92,7 +92,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p112": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par4.md",
   "lecture": "par4.md",
   "quote": null,
@@ -100,14 +100,14 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p113": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par1.md",
   "quote": "Telecommunications - exchange of information over long distance",
   "ref": "Communication — Telecommunications",
   "src": "LECTURE"
  },
  "y3:p114": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par6.md",
   "lecture": "par6.md",
   "quote": null,
@@ -115,7 +115,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p115": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par1.md",
   "lecture": "par1.md",
   "quote": null,
@@ -123,14 +123,14 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p116": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par5.md",
   "quote": "Interface - defines how the layers above and below interact with it",
   "ref": "OSI — Service, Interface, Protocol",
   "src": "LECTURE"
  },
  "y3:p117": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par1.md",
   "lecture": "par1.md",
   "quote": null,
@@ -138,7 +138,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p85": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par3.md",
   "lecture": "par3.md",
   "quote": null,
@@ -146,28 +146,28 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p86": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par5.md",
   "quote": "Ensures pieces all arrive correctly at receiver and reassembles them into the original order",
   "ref": "Transport Layer",
   "src": "LECTURE"
  },
  "y3:p87": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par8.md",
   "quote": "a device that receives a signal, regenerates it, and transmits it",
   "ref": "Ethernet — Terminators / Repeaters",
   "src": "LECTURE"
  },
  "y3:p88": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par7.md",
   "quote": "If the maximum window size is 1, it becomes the stop and wait protocol",
   "ref": "Sliding Window Protocol",
   "src": "LECTURE"
  },
  "y3:p89": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par4.md",
   "lecture": "par4.md",
   "quote": null,
@@ -175,21 +175,21 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p90": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par4.md",
   "quote": "Decryption - restore the original information from the encrypted form",
   "ref": "Encryption / Decryption",
   "src": "LECTURE"
  },
  "y3:p91": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par8.md",
   "quote": "Terminators: prevents reflection on coax",
   "ref": "Ethernet — Terminator",
   "src": "LECTURE"
  },
  "y3:p92": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par5.md",
   "lecture": "par5.md",
   "quote": null,
@@ -197,7 +197,7 @@
   "src": "LECTURE_PARAPHRASE"
  },
  "y3:p93": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par1.md",
   "lecture": null,
   "quote": "Microwave: Requires no obstacles between transmitter and receiver",
@@ -205,14 +205,14 @@
   "src": "LECTURE"
  },
  "y3:p94": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par5.md",
   "quote": "Data Link Layer: Defines frames. Sends and receives frames",
   "ref": "Data Link Layer",
   "src": "LECTURE"
  },
  "y3:p95": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par5.md",
   "lecture": null,
   "quote": "May provide security services such as encryption and decryption",
@@ -220,7 +220,7 @@
   "src": "LECTURE"
  },
  "y3:p96": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par5.md",
   "lecture": null,
   "quote": "Covers a larger area such as a city/municipal region, country, or the world",
@@ -228,21 +228,21 @@
   "src": "LECTURE"
  },
  "y3:p97": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par2.md",
   "quote": "Resolution is – 64 Kbps",
   "ref": "Nyquist Theorem — Telephone",
   "src": "LECTURE"
  },
  "y3:p98": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par5.md",
   "quote": "Layered protocol model. Each layer performs specific functions",
   "ref": "ISO's OSI Model",
   "src": "LECTURE"
  },
  "y3:p99": {
-  "date": "2026-11-04",
+  "date": "2026-11-05",
   "file": "par3.md",
   "lecture": "par3.md",
   "quote": null,
